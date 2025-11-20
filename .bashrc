@@ -1,9 +1,9 @@
 #!/bin/bash
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+[[ -z "$PS1" ]] && return
 
 # Source global definitions
-if [ -f /etc/bashrc ]; then
+if [[ -f /etc/bashrc ]]; then
         . /etc/bashrc
 fi
 
@@ -29,13 +29,13 @@ function user_color {
 }
 
 function settitle() {
-  u=${USERNAME}
+  u=${USER}
   h="$u@${HOSTNAME}"
   echo -ne "\e]2;$h\a\e]1;$h\a";
 }
 
 # Set directory colors
-eval `dircolors ~/.dir_colors`
+eval "$(dircolors ~/.dir_colors)"
 
 # Set prompt and window title
 inputcolor='[0;37m'
@@ -43,10 +43,10 @@ cwdcolor='[0;34m'
 host_name='[1;31m'
 branchcolor='[0;36m'
 user_color
-PROMPT_COMMAND='settitle; git_branch; get_hostname; history -a;'
-PS1='\n\[\e${cwdcolor}\][${PWD}]\[\e${branchcolor}\]${gitbranch}\n\[\e${usercolor}\][\u]\[\e${host_name}\][${SHORTNAME}]\[\e${inputcolor}\] $ '
-export PS1
+#PROMPT_COMMAND='settitle; git_branch; get_hostname; history -a;'
+#PS1='\n\[\e${cwdcolor}\][${PWD}]\[\e${branchcolor}\]${gitbranch}\n\[\e${usercolor}\][\u]\[\e${host_name}\][${SHORTNAME}]\[\e${inputcolor}\] $ '
+export PS1='\[\e${usercolor}\][\u]\[\e${host_name}\][\h]\e${cwdcolor}[\w]\[\e${inputcolor}\]$ '
 
 # Aliases
-alias ls='ls -l --color'
+alias ls='ls --color'
 alias grep='grep -n --color'
