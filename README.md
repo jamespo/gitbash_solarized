@@ -5,7 +5,7 @@ This is how I solarize the Git Bash terminal and vim and change the font, prompt
 
 # Installation
 
-`git clone https://github.com/speedpacer/gitbash_solarized`</br>
+`git clone https://github.com/jamespo/gitbash_solarized`</br>
 `cd gitbash_solarized`</br>
 `chmod +x setup.sh`</br>
 `./setup.sh`</br>
