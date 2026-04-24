@@ -46,7 +46,7 @@ user_color
 #PROMPT_COMMAND='settitle; git_branch; get_hostname; history -a;'
 PROMPT_DIRTRIM=2
 #PS1='\n\[\e${cwdcolor}\][${PWD}]\[\e${branchcolor}\]${gitbranch}\n\[\e${usercolor}\][\u]\[\e${host_name}\][${SHORTNAME}]\[\e${inputcolor}\] $ '
-export PS1='\[\e${usercolor}\][\u]\[\e${host_name}\][\h]\e${cwdcolor}[\w]\[\e${inputcolor}\]$ '
+PS1='\[\e${usercolor}\][\u]\[\e${host_name}\][\h]\e${cwdcolor}[\w]\[\e${inputcolor}\]$ '
 
 # Aliases
 alias ls='ls --color'
