@@ -37,6 +37,22 @@ function settitle() {
 # Set directory colors
 eval "$(dircolors ~/.dir_colors)"
 
+
+truncate_pwd() {
+  local max_len=25
+  local dir="${PWD/#$HOME/~}" # Replace $HOME with ~
+
+  if [ ${#dir} -gt $max_len ]; then
+    # Keep leading ellipsis + the last (max_len - 3) characters
+    TRUNC_PWD="...${dir: -$((max_len - 3))}"
+  else
+    TRUNC_PWD="$dir"
+  fi
+}
+
+PROMPT_COMMAND=truncate_pwd
+export PS1='\u@\h:${TRUNC_PWD}\$ '
+
 # Set prompt and window title
 inputcolor='[0;37m'
 cwdcolor='[0;34m'
@@ -45,8 +61,13 @@ branchcolor='[0;36m'
 user_color
 #PROMPT_COMMAND='settitle; git_branch; get_hostname; history -a;'
 PROMPT_DIRTRIM=2
+# git branch version
 #PS1='\n\[\e${cwdcolor}\][${PWD}]\[\e${branchcolor}\]${gitbranch}\n\[\e${usercolor}\][\u]\[\e${host_name}\][${SHORTNAME}]\[\e${inputcolor}\] $ '
-PS1='\[\e${usercolor}\][\u]\[\e${host_name}\][\h]\e${cwdcolor}[\w]\[\e${inputcolor}\]$ '
+# no git branch
+#PS1='\[\e${usercolor}\][\u]\[\e${host_name}\][\h]\e${cwdcolor}[\w]\[\e${inputcolor}\]$ '
+# truncated for long dirs
+PS1='\[\e${usercolor}\][\u]\[\e${host_name}\][\h]\e${cwdcolor}[${TRUNC_PWD}\]\[\e${inputcolor}\]$ '
+
 
 # Aliases
 alias ls='ls --color'
