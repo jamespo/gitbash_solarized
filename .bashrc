@@ -8,7 +8,6 @@ if [[ -f /etc/bashrc ]]; then
 fi
 
 export SHELL=/bin/bash
-export TERM=xterm
 
 function get_hostname {
   export SHORTNAME=${HOSTNAME%%.*}
@@ -51,7 +50,6 @@ truncate_pwd() {
 }
 
 PROMPT_COMMAND=truncate_pwd
-export PS1='\u@\h:${TRUNC_PWD}\$ '
 
 # Set prompt and window title
 inputcolor='[0;37m'
@@ -66,9 +64,13 @@ PROMPT_DIRTRIM=2
 # no git branch
 #PS1='\[\e${usercolor}\][\u]\[\e${host_name}\][\h]\e${cwdcolor}[\w]\[\e${inputcolor}\]$ '
 # truncated for long dirs
-PS1='\[\e${usercolor}\][\u]\[\e${host_name}\][\h]\e${cwdcolor}[${TRUNC_PWD}\]\[\e${inputcolor}\]$ '
-
+PS1='\[\e${usercolor}\][\u]\[\e${host_name}\][\h]\[\e${cwdcolor}\][${TRUNC_PWD}]\[\e${inputcolor}\]\$\[\e[0m\] '
+# PS1 references shell-local color vars, so it must never leak into child
+# environments (sudo -i keeps PS1 via sudoers env_keep and would garble it).
+export -n PS1 PROMPT_COMMAND 2>/dev/null
 
 # Aliases
 alias ls='ls --color'
 alias grep='grep -n --color'
+
+
